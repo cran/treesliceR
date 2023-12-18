@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+
+<html>
+
+<head>
+
+<meta charset="utf-8" />
+<meta name="generator" content="pandoc" />
+<meta http-equiv="X-UA-Compatible" content="IE=EDGE" />
+
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+
+
+
+<title>Passerines Distribution</title>
+
+<script>// Pandoc 2.9 adds attributes on both header and div. We remove the former (to
+// be compatible with the behavior of Pandoc < 2.8).
+document.addEventListener('DOMContentLoaded', function(e) {
+  var hs = document.querySelectorAll("div.section[class*='level'] > :first-child");
+  var i, h, a;
+  for (i = 0; i < hs.length; i++) {
+    h = hs[i];
+    if (!/^h[1-6]$/i.test(h.tagName)) continue;  // it should be a header h1-h6
+    a = h.attributes;
+    while (a.length > 0) h.removeAttribute(a[0].name);
+  }
+});
+</script>
+
+<style type="text/css">
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+span.underline{text-decoration: underline;}
+div.column{display: inline-block; vertical-align: top; width: 50%;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+</style>
+
+
+
+<style type="text/css">
+code {
+white-space: pre;
+}
+.sourceCode {
+overflow: visible;
+}
+</style>
+<style type="text/css" data-origin="pandoc">
+pre > code.sourceCode { white-space: pre; position: relative; }
+pre > code.sourceCode > span { display: inline-block; line-height: 1.25; }
+pre > code.sourceCode > span:empty { height: 1.2em; }
+.sourceCode { overflow: visible; }
+code.sourceCode > span { color: inherit; text-decoration: inherit; }
+div.sourceCode { margin: 1em 0; }
+pre.sourceCode { margin: 0; }
+@media screen {
+div.sourceCode { overflow: auto; }
+}
+@media print {
+pre > code.sourceCode { white-space: pre-wrap; }
+pre > code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
+}
+pre.numberSource code
+{ counter-reset: source-line 0; }
+pre.numberSource code > span
+{ position: relative; left: -4em; counter-increment: source-line; }
+pre.numberSource code > span > a:first-child::before
+{ content: counter(source-line);
+position: relative; left: -1em; text-align: right; vertical-align: baseline;
+border: none; display: inline-block;
+-webkit-touch-callout: none; -webkit-user-select: none;
+-khtml-user-select: none; -moz-user-select: none;
+-ms-user-select: none; user-select: none;
+padding: 0 4px; width: 4em;
+color: #aaaaaa;
+}
+pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa; padding-left: 4px; }
+div.sourceCode
+{ }
+@media screen {
+pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
+}
+code span.al { color: #ff0000; font-weight: bold; } 
+code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.at { color: #7d9029; } 
+code span.bn { color: #40a070; } 
+code span.bu { color: #008000; } 
+code span.cf { color: #007020; font-weight: bold; } 
+code span.ch { color: #4070a0; } 
+code span.cn { color: #880000; } 
+code span.co { color: #60a0b0; font-style: italic; } 
+code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.do { color: #ba2121; font-style: italic; } 
+code span.dt { color: #902000; } 
+code span.dv { color: #40a070; } 
+code span.er { color: #ff0000; font-weight: bold; } 
+code span.ex { } 
+code span.fl { color: #40a070; } 
+code span.fu { color: #06287e; } 
+code span.im { color: #008000; font-weight: bold; } 
+code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } 
+code span.kw { color: #007020; font-weight: bold; } 
+code span.op { color: #666666; } 
+code span.ot { color: #007020; } 
+code span.pp { color: #bc7a00; } 
+code span.sc { color: #4070a0; } 
+code span.ss { color: #bb6688; } 
+code span.st { color: #4070a0; } 
+code span.va { color: #19177c; } 
+code span.vs { color: #4070a0; } 
+code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } 
+</style>
+<script>
+// apply pandoc div.sourceCode style to pre.sourceCode instead
+(function() {
+  var sheets = document.styleSheets;
+  for (var i = 0; i < sheets.length; i++) {
+    if (sheets[i].ownerNode.dataset["origin"] !== "pandoc") continue;
+    try { var rules = sheets[i].cssRules; } catch (e) { continue; }
+    var j = 0;
+    while (j < rules.length) {
+      var rule = rules[j];
+      // check if there is a div.sourceCode rule
+      if (rule.type !== rule.STYLE_RULE || rule.selectorText !== "div.sourceCode") {
+        j++;
+        continue;
+      }
+      var style = rule.style.cssText;
+      // check if color or background-color is set
+      if (rule.style.color === '' && rule.style.backgroundColor === '') {
+        j++;
+        continue;
+      }
+      // replace div.sourceCode by a pre.sourceCode rule
+      sheets[i].deleteRule(j);
+      sheets[i].insertRule('pre.sourceCode{' + style + '}', j);
+    }
+  }
+})();
+</script>
+
+
+
+
+<style type="text/css">body {
+background-color: #fff;
+margin: 1em auto;
+max-width: 700px;
+overflow: visible;
+padding-left: 2em;
+padding-right: 2em;
+font-family: "Open Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+font-size: 14px;
+line-height: 1.35;
+}
+#TOC {
+clear: both;
+margin: 0 0 10px 10px;
+padding: 4px;
+width: 400px;
+border: 1px solid #CCCCCC;
+border-radius: 5px;
+background-color: #f6f6f6;
+font-size: 13px;
+line-height: 1.3;
+}
+#TOC .toctitle {
+font-weight: bold;
+font-size: 15px;
+margin-left: 5px;
+}
+#TOC ul {
+padding-left: 40px;
+margin-left: -1.5em;
+margin-top: 5px;
+margin-bottom: 5px;
+}
+#TOC ul ul {
+margin-left: -2em;
+}
+#TOC li {
+line-height: 16px;
+}
+table {
+margin: 1em auto;
+border-width: 1px;
+border-color: #DDDDDD;
+border-style: outset;
+border-collapse: collapse;
+}
+table th {
+border-width: 2px;
+padding: 5px;
+border-style: inset;
+}
+table td {
+border-width: 1px;
+border-style: inset;
+line-height: 18px;
+padding: 5px 5px;
+}
+table, table th, table td {
+border-left-style: none;
+border-right-style: none;
+}
+table thead, table tr.even {
+background-color: #f7f7f7;
+}
+p {
+margin: 0.5em 0;
+}
+blockquote {
+background-color: #f6f6f6;
+padding: 0.25em 0.75em;
+}
+hr {
+border-style: solid;
+border: none;
+border-top: 1px solid #777;
+margin: 28px 0;
+}
+dl {
+margin-left: 0;
+}
+dl dd {
+margin-bottom: 13px;
+margin-left: 13px;
+}
+dl dt {
+font-weight: bold;
+}
+ul {
+margin-top: 0;
+}
+ul li {
+list-style: circle outside;
+}
+ul ul {
+margin-bottom: 0;
+}
+pre, code {
+background-color: #f7f7f7;
+border-radius: 3px;
+color: #333;
+white-space: pre-wrap; 
+}
+pre {
+border-radius: 3px;
+margin: 5px 0px 10px 0px;
+padding: 10px;
+}
+pre:not([class]) {
+background-color: #f7f7f7;
+}
+code {
+font-family: Consolas, Monaco, 'Courier New', monospace;
+font-size: 85%;
+}
+p > code, li > code {
+padding: 2px 0px;
+}
+div.figure {
+text-align: center;
+}
+img {
+background-color: #FFFFFF;
+padding: 2px;
+border: 1px solid #DDDDDD;
+border-radius: 3px;
+border: 1px solid #CCCCCC;
+margin: 0 5px;
+}
+h1 {
+margin-top: 0;
+font-size: 35px;
+line-height: 40px;
+}
+h2 {
+border-bottom: 4px solid #f7f7f7;
+padding-top: 10px;
+padding-bottom: 2px;
+font-size: 145%;
+}
+h3 {
+border-bottom: 2px solid #f7f7f7;
+padding-top: 10px;
+font-size: 120%;
+}
+h4 {
+border-bottom: 1px solid #f7f7f7;
+margin-left: 8px;
+font-size: 105%;
+}
+h5, h6 {
+border-bottom: 1px solid #ccc;
+font-size: 105%;
+}
+a {
+color: #0033dd;
+text-decoration: none;
+}
+a:hover {
+color: #6666ff; }
+a:visited {
+color: #800080; }
+a:visited:hover {
+color: #BB00BB; }
+a[href^="http:"] {
+text-decoration: underline; }
+a[href^="https:"] {
+text-decoration: underline; }
+
+code > span.kw { color: #555; font-weight: bold; } 
+code > span.dt { color: #902000; } 
+code > span.dv { color: #40a070; } 
+code > span.bn { color: #d14; } 
+code > span.fl { color: #d14; } 
+code > span.ch { color: #d14; } 
+code > span.st { color: #d14; } 
+code > span.co { color: #888888; font-style: italic; } 
+code > span.ot { color: #007020; } 
+code > span.al { color: #ff0000; font-weight: bold; } 
+code > span.fu { color: #900; font-weight: bold; } 
+code > span.er { color: #a61717; background-color: #e3d2d2; } 
+</style>
+
+
+
+
+</head>
+
+<body>
+
+
+
+
+<h1 class="title toc-ignore">Passerines Distribution</h1>
+
+
+
+<p>This article aims to map the species richness distributions of older
+and young lineages of Australian passerines (obtained from <a href="https://doi.org/10.1038/nature11631">Jetz et al. (2012)</a>).
+Using the <code>treesliceR</code> tools, we’ll compare the spatial
+distribution between these lineages and explore emergent biodiversity
+patterns in space.</p>
+<p>Before starting our analysis, we’ll need to load the
+<code>ape</code>, <code>ggplot2</code>, and <code>ggpubr</code>
+packages. Additionally, if required, install the <code>devtools</code>
+before downloading the <code>treesliceR</code> package from GitHub:</p>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading the packages that we&#39;ll use</span></span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ape)</span>
+<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggpubr)</span></code></pre></div>
+<p>Now, we’ll need to load (and install if necessary) the
+<code>treesliceR</code> package:</p>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Loading it</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(treesliceR)</span></code></pre></div>
+<div id="pruning-the-passerines-phylogeny" class="section level1">
+<h1>1. Pruning the passerines phylogeny</h1>
+<p>Before conducting our analysis, it is necessary to load the
+passerines’ phylogeny. We will call the <code>pass_trees</code> object,
+which is accessible from the <code>treesliceR</code> package. This
+object comprises 100 passerine phylogenies, but for the sake of
+simplicity we will use only the first one:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a>tree <span class="ot">&lt;-</span> pass_trees[[<span class="dv">1</span>]]</span></code></pre></div>
+<p>To evaluate the species richness distribution of both older and
+younger lineages, it is essential to split the phylogenetic tree of
+these lineages based on a specific criterion. Therefore, we will
+categorize lineages as older species if their last branching events are
+higher than the 75th quantile of the overall passerines age
+distribution. This can be done by using the <code>prune_tips()</code>
+function:</p>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a>older <span class="ot">&lt;-</span> <span class="fu">prune_tips</span>(tree, <span class="fl">0.75</span>, <span class="at">qtl =</span> T)</span></code></pre></div>
+<p>Now, we will classify lineages as younger if their ages are smaller
+than the 25th quantile of the overall passerine ages. However, because
+we aim to keep in the phylogeny those species originating <em>after</em>
+our quantile threshold, we will set the argument <code>method = 2</code>
+(for more details, see <code>?prune_tips()</code>):</p>
+<div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a>younger <span class="ot">&lt;-</span> <span class="fu">prune_tips</span>(tree, <span class="fl">0.25</span>, <span class="at">qtl =</span> T, <span class="at">method =</span> <span class="dv">2</span>)</span></code></pre></div>
+<p>Let’s visualize both the original and pruned phylogenies:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a>oldpar <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">3</span>)) <span class="co"># Setting an 1x3 graphical display</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(older, <span class="at">main =</span> <span class="st">&quot;All species&quot;</span>, <span class="at">show.tip.label =</span> F); <span class="fu">axisPhylo</span>()</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(older, <span class="at">main =</span> <span class="st">&quot;Older species&quot;</span>, <span class="at">show.tip.label =</span> F); <span class="fu">axisPhylo</span>()</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(younger, <span class="at">main =</span> <span class="st">&quot;Younger species&quot;</span>, <span class="at">show.tip.label =</span> F); <span class="fu">axisPhylo</span>()</span>
+<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="fu">par</span>(oldpar) <span class="co"># Returning to the original display</span></span></code></pre></div>
+<p><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAASAAAAEgCAMAAAAjXV6yAAAAjVBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZpAAZrY6AAA6AGY6OgA6OpA6ZmY6ZpA6ZrY6kLY6kNtmAABmADpmOgBmZjpmkJBmtttmtv+QOgCQOjqQZgCQZjqQttuQ2/+2ZgC2kDq22/+2///bkDrbkGbbtmbbtpDb25Db27bb////tmb/25D/27b//7b//9v///87z+/SAAAACXBIWXMAAA7DAAAOwwHHb6hkAAAJl0lEQVR4nO2ci3bbNhBE4TxqtWlSu0ljp6lcR31Jssz//7ySBEGQCo0hFxwQtHdOo1eWs9DFcgFSOTWFKiiz9ABylwICUkBACghIAQEpICAFBKSAgBQQkAICUkBACghIAQEpICAFBKSAgBQQkAICUkBACghIAQEFAT3emsv66dW36g80GxVUFP98NObNHz585GHBROVQb4riuJnqBBMFAR03pko4M6CD+WX/+Gf5feYEVLq+3Rd3FaU5BQDtLj5dbCcAGqXTdflNep7zeN9dbI+bynpehQA93r79d3N19mW+GvOh/JJvPpmLcrYevhjzvhzU8WP1cR3UfGQDB3QwV9XTztzU4WWVvv/oDztdv/6pzjQ6kdNx88Pv1XQ+lAe+u6/noQorHb7WDmWinwWJQoCOm8uS0b4HqPxe5X+na/P58fZiW47i/qEcyen6cv+3ubIDsh/ZwAHX5tNDG74/bPxhp+vqS05I5I3vTNUxT9ev7h8aYxtWH72vE5npiUKAqq9SFu4ZoNef9/Y0OZibuhp2F9uD/dJVkPvIBkJAVXj3MHsCTkjUnc9qiPXH5YMHZJ+liQKAaibO1wE6VSvQtrG72plarlaqIPeRDRyw7Z9iu6ZZt4e5cY9N5I3toXXEACBpogCg8qStZP19I/3vq7ns8a6/dH9i28AB236T7k1s+7fTEvWMR1XQhEQBQDtTN+iLbe8Uq9aKK3vG2hO67SS+NdQzVQcO+R7MB7/Md1uDe19MSXQOyPWgKuS46fait2VTmZ7oaUAVGovpfBV7v7dLQ7VkVPV53/T8vV1c7Ec2cNC5t1FsVzF7WDvu0YnOALlVrDhYYwfIvZ+aSHap0alPruZNFNhwPZnoxQCqTreH66GmGE70YgAVf5Vrzrsnd+wzA3pBUkBACghIAQEpICAFBKSAgBQQkAICUkBACghIAQEpICAFBKSAgBQQkAICUkBACghIAQEpICAFBKSAgGIAmVazDSepv08k/DtkSx43nUubhweIOsNs/zYPr4K4Iyf7jzyB5UOojJkzTPf3LzgVtPYW5AGRepAxI4s0V//Bl6EweQKKMvGPAcSe4dVX0JKr7xz+9SOagGhAzAoi+7eP3CYtNljav/MIw2QJ6sFTexDVv+XPO8W4G2m6v3sMpola5s2IJpezf0Fu0tyrpQT+7hVzo8j+AikAUXfSi58Ckf7nL0Nh8gQUZeIfDYg9w6uuIPZGLsFGEeaIXeapM8z2d09UQDTR/cddysQDIlcQ0989MSuI1yQS+NdP9J00s4LI/gMvQ2HTE1DbRAL/GcOGjjT+hxmxyZL+nUyjwgQJ1r2K1Q+Qf/xGkdyDuBXUUEJh0gTPoILGhUkTrLmCTAeQXs0P2Xd6EBEQvUdQK8g5MwGJD1/avwbE7kF+u0sQ2b8LiHyKiR0W9W8A8XpQ+5Mbc5Uh+1MrCP8mGacU/tQe9IwqiH2KSR2W9zcjlspYQNQmyvZ3TToYF5Ng/aeYT/VkXEyC9Tdpn+rJuJgEzH/klMLf+WoFPeE/xj0KEPt2BN3fvQ7FRSVgXqsm8Sdfaqy7gryvVtCQf6E9KOxfpOhB0oNz8C/G3VGJB8ReZdgVBCYiFhD5Wono7/4A/2hA5Ari+RceEHWZlx6/uL/7Q+5B7J0udxVrvEmAiNObwv/sGcWJEoz5VSBnf58Hx4kSMOc4hX9RMHuQM2f3CHIFnb8OxU1OQL9WIvvPGTd4oFYQODDJtRLRf+h1KG5ygucBiNmk2Rs5sr97RV3FpMfn4D8mRewqRm7S9Aoy1ApiNokk/iPuqEQCIi/D/GUezkMcIKIS+cM0sYDoM8zeiHZyhcYhSkC9I5HAvzDkHuSvBqQmy/o7QLwKkh6bib+rUhgnS2AM9X8ESfcvUlQQd5/C9uf3oPYfOUlNlvVvT2PyRlHqsLz/mD4XC4g6wzx/YzqAqJca0sMX9je92ylwHLIU9SN5J83ybwHZJHAcohRccf17gDjjWPfVfB8QsQdJj17aP9Eptt47igkBSY9f1r8PCI1DmEIBgRS+h/JOsQRNGvjHAaJu5Zj+XUDMHlSQmzTNPx0gWglx/Y2vTtDnZgBErSCSfx8QoYLaq2HSMkP3Z1eQSTHDq64g4uwm88c/isnH0L+fQqwgpn8LiFhBvDUsgb//2SQYKU9Q8P4dcxJ/03kMRMoTPIcKghstrSByBckOz8PfAaL2IJggY/80FUS8VmL703uQMa5LyEyy8GdWkN1HyAxy8af2oGdSQbydNPGWdEJ/4rWYVtCIBM+gB/Fud4y62Mva37ABsSY4kb+7oRKOjEiQ4nYE07/5+lxAaz7FHCBd5of8mwaEI6UJ1r7MdzZB3J20zGB5f78O6KXGoH/nUl43ikP+Y+51FFpBlTXpFKsHTryhRff3PSgcKbG3W7hR91Ny9D9bxeavoGZmafsUtv/5Mh+OlNlzK4jsT98Hdb4AZZlh+/cBEfZB3S9AriASox4gbgXJBrisfxcQwh8JaMQ6maF/DxC3gjjLDNu/cGyaTFRAa60gt1m3XSgYKbGnNgi6vweEAYgBuasAVgUx/c8BUSrIXS4xZpnt3wPEuB9kJiTI0t94f5svNBZJgqKfYG7l5K+AYGxEglYSkwz83VvWKUZTIv9R/KMAkWeY7u/e0iqIuVFM4T8uVpygmVnaDLP9u+9DsdIEzcGsG2Z0f9NRMFaaoCD3iAT+/n0oNjIB7VIjkT+OjUzAnuHVVxBDif0pPagvicmy/r23FECS43LyH8s/DhCxgsj+vbesCpp/5On8e28JgOwejjfDbH/6Kka6VZzMn74P8k+kCiL780+x9omz02X701cx+8TbpyTxb9+yKgi7C5XSf87Y4YPYM7z2CmKI7j/hSuZFApqSTgZoyhRk6P9dutBfcnOvXwoISAEBKSAgBQQkAfTdIjMz5az8ZbmN+/GtfZhXGfkrIAUU56+AFFCcvwKiAHpBUkBACghIAQEpICAFBKSAgBQQkAICmgxoZ8xlURyMuWEMJz//qYCO7/aPtzenX7fHH79NHtwa/acC2l25NF+2Uwe3Sv+pgO5+25Qleiir9I5yDmTnPxnQ231pTfwCuflPBnRTlSnvFMjOfyogy57XRLPzlyzzV+RlOCt/3SgCKSAgBQSkgIAUEJACAlJAQAoISAEBKSAgBQSkgIAUEJACAlJAQAoISAEBKSAgBQSkgIAUEJACAlJAQAoISAEBKSAgBQSkgIAUEJACAlJAQAoISAEBKSAgBQSkgIAUEJACAlJAQAoISAEB/Q+bIlyy/wC1PwAAAABJRU5ErkJggg==" /><!-- --></p>
+</div>
+<div id="distribution-of-species-richness-older-vs-younger" class="section level1">
+<h1>2. Distribution of species richness (older <em>vs</em> younger)</h1>
+<p>Before calculating the species richness in each one of our categories
+(young and old lineages), we need to identify the older and younger
+species present in the pruned phylogenies:</p>
+<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a>older <span class="ot">&lt;-</span> older<span class="sc">$</span>tip.label</span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a>younger <span class="ot">&lt;-</span> younger<span class="sc">$</span>tip.label</span></code></pre></div>
+<p>Now, we need to evaluate the distribution of these species. To do
+this, we’ll load the passerines species occurrence matrix in the
+<code>pass_mat</code> object. Let’s take a look at the first tree
+species in the matrix:</p>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="fu">head</span>(pass_mat[, <span class="dv">1</span><span class="sc">:</span><span class="dv">3</span>])</span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;   Heteromyias_albispecularis Myzomela_obscura Taeniopygia_guttata</span></span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 1                          0                1                   0</span></span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 2                          0                1                   0</span></span>
+<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 3                          0                1                   0</span></span>
+<span id="cb8-6"><a href="#cb8-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 4                          0                1                   0</span></span>
+<span id="cb8-7"><a href="#cb8-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 5                          0                1                   0</span></span>
+<span id="cb8-8"><a href="#cb8-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; 6                          0                1                   0</span></span></code></pre></div>
+<p>Then, we can create subsets of this matrix for both older and younger
+species. Let’s begin with the older ones:</p>
+<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a>positions <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">colnames</span>(pass_mat) <span class="sc">%in%</span> older)</span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>old_mat <span class="ot">&lt;-</span> pass_mat[, positions]</span></code></pre></div>
+<p>Now, let’s proceed by subsetting assemblages that contain the younger
+species:</p>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>positions <span class="ot">&lt;-</span> <span class="fu">which</span>(<span class="fu">colnames</span>(pass_mat) <span class="sc">%in%</span> younger)</span>
+<span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>yng_mat <span class="ot">&lt;-</span> pass_mat[, positions]</span></code></pre></div>
+<p>Now, we can load a grid map of Australia and merge species richness
+information from young and old species onto it:</p>
+<div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>grid <span class="ot">&lt;-</span> AU_grid</span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a>grid<span class="sc">$</span>SR_old <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(old_mat)</span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a>grid<span class="sc">$</span>SR_yng <span class="ot">&lt;-</span> <span class="fu">rowSums</span>(yng_mat)</span></code></pre></div>
+<p>Then, visualize the species richness patterns in both categories:</p>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Younger</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>AU_yng <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>          <span class="fu">geom_sf</span>(<span class="at">data =</span> grid, <span class="fu">aes</span>(<span class="at">fill =</span> SR_yng)) <span class="sc">+</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a>          <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;white&quot;</span>, <span class="at">high =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span>          </span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a>          <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;SR (Young)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-6"><a href="#cb12-6" aria-hidden="true" tabindex="-1"></a>          <span class="fu">theme_void</span>()</span>
+<span id="cb12-7"><a href="#cb12-7" aria-hidden="true" tabindex="-1"></a><span class="co"># Older</span></span>
+<span id="cb12-8"><a href="#cb12-8" aria-hidden="true" tabindex="-1"></a>AU_old <span class="ot">&lt;-</span> <span class="fu">ggplot</span>() <span class="sc">+</span></span>
+<span id="cb12-9"><a href="#cb12-9" aria-hidden="true" tabindex="-1"></a>          <span class="fu">geom_sf</span>(<span class="at">data =</span> grid, <span class="fu">aes</span>(<span class="at">fill =</span> SR_old)) <span class="sc">+</span></span>
+<span id="cb12-10"><a href="#cb12-10" aria-hidden="true" tabindex="-1"></a>          <span class="fu">scale_fill_gradient</span>(<span class="at">low =</span> <span class="st">&quot;white&quot;</span>, <span class="at">high =</span> <span class="st">&quot;red&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-11"><a href="#cb12-11" aria-hidden="true" tabindex="-1"></a>          <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;SR (Old)&quot;</span>) <span class="sc">+</span></span>
+<span id="cb12-12"><a href="#cb12-12" aria-hidden="true" tabindex="-1"></a>          <span class="fu">theme_void</span>()</span>
+<span id="cb12-13"><a href="#cb12-13" aria-hidden="true" tabindex="-1"></a><span class="co"># Plotting</span></span>
+<span id="cb12-14"><a href="#cb12-14" aria-hidden="true" tabindex="-1"></a><span class="fu">ggarrange</span>(AU_yng, AU_old, <span class="at">labels =</span> <span class="fu">c</span>(<span class="st">&quot;a)&quot;</span>, <span class="st">&quot;b)&quot;</span>), <span class="at">ncol =</span> <span class="dv">2</span>, <span class="at">nrow =</span> <span class="dv">1</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+</div>
+<div id="mismatches-in-species-richness-distribution" class="section level1">
+<h1>3. Mismatches in species richness distribution</h1>
+<p>As observed above, there is a spatial correspondence between the
+species richness of younger and older lineages. However, the extent of
+is this relationship is uncertain. Let’s fit a simple linear regression
+to quantify this relationship:</p>
+<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>model <span class="ot">&lt;-</span> <span class="fu">lm</span>(SR_yng <span class="sc">~</span> SR_old, <span class="at">data =</span> grid)</span></code></pre></div>
+<p>Now, let’s examine the summarized results:</p>
+<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">summary</span>(model)</span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Call:</span></span>
+<span id="cb14-4"><a href="#cb14-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; lm(formula = SR_yng ~ SR_old, data = grid)</span></span>
+<span id="cb14-5"><a href="#cb14-5" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-6"><a href="#cb14-6" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residuals:</span></span>
+<span id="cb14-7"><a href="#cb14-7" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;      Min       1Q   Median       3Q      Max </span></span>
+<span id="cb14-8"><a href="#cb14-8" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; -10.5402  -2.8631  -0.4006   2.6029  12.1718 </span></span>
+<span id="cb14-9"><a href="#cb14-9" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-10"><a href="#cb14-10" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Coefficients:</span></span>
+<span id="cb14-11"><a href="#cb14-11" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt;             Estimate Std. Error t value Pr(&gt;|t|)    </span></span>
+<span id="cb14-12"><a href="#cb14-12" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; (Intercept) -1.16669    0.56283  -2.073   0.0385 *  </span></span>
+<span id="cb14-13"><a href="#cb14-13" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; SR_old       0.85690    0.02403  35.658   &lt;2e-16 ***</span></span>
+<span id="cb14-14"><a href="#cb14-14" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; ---</span></span>
+<span id="cb14-15"><a href="#cb14-15" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Signif. codes:  0 &#39;***&#39; 0.001 &#39;**&#39; 0.01 &#39;*&#39; 0.05 &#39;.&#39; 0.1 &#39; &#39; 1</span></span>
+<span id="cb14-16"><a href="#cb14-16" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
+<span id="cb14-17"><a href="#cb14-17" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Residual standard error: 3.999 on 718 degrees of freedom</span></span>
+<span id="cb14-18"><a href="#cb14-18" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Multiple R-squared:  0.6391, Adjusted R-squared:  0.6386 </span></span>
+<span id="cb14-19"><a href="#cb14-19" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; F-statistic:  1271 on 1 and 718 DF,  p-value: &lt; 2.2e-16</span></span></code></pre></div>
+<p>Note that its coefficient of determination is high and significant
+(R² = 63%!!!!). Thus, areas with high richness of younger lineages will
+generally also exhibit high richness of older lineages. These areas
+could indicate different dynamics of diversification rates over time,
+concurrently influencing the patterns of species richness of lineages of
+different depths.</p>
+<p>Let’s dive a bit more into this example and examine a scatterplot
+depicting the species richness of both categories:</p>
+<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(SR_yng <span class="sc">~</span> SR_old, <span class="at">data =</span> grid,</span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a>     <span class="at">ylab =</span> <span class="st">&quot;Species richness (younger)&quot;</span>,</span>
+<span id="cb15-3"><a href="#cb15-3" aria-hidden="true" tabindex="-1"></a>     <span class="at">xlab =</span> <span class="st">&quot;Species richness (older)&quot;</span>)</span>
+<span id="cb15-4"><a href="#cb15-4" aria-hidden="true" tabindex="-1"></a><span class="co"># Regression line</span></span>
+<span id="cb15-5"><a href="#cb15-5" aria-hidden="true" tabindex="-1"></a><span class="fu">abline</span>(model, <span class="at">col =</span> <span class="st">&quot;red&quot;</span>)</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Despite the stronger relationship between the species richness of
+both young and old lineages, the deviations in these patterns could
+indicate important and unidentified biogeographical processes
+influencing the currently observed species richness of these
+lineages.</p>
+<p>Therefore, let’s quantify the magnitude of these deviations from our
+model using the <code>residuals</code> function and spatialize them:</p>
+<div class="sourceCode" id="cb16"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a>grid<span class="sc">$</span>res <span class="ot">&lt;-</span> <span class="fu">residuals</span>(model)</span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="co"># Mapping it</span></span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_sf</span>(<span class="at">data =</span> grid, <span class="fu">aes</span>(<span class="at">fill =</span> res)) <span class="sc">+</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient2</span>(<span class="at">low =</span> <span class="st">&quot;red&quot;</span>, <span class="at">mid =</span> <span class="st">&quot;grey80&quot;</span>, <span class="at">high =</span> <span class="st">&quot;blue&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">&quot;Residuals&quot;</span>) <span class="sc">+</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">theme_void</span>()</span></code></pre></div>
+<p><img src="data:image/png;base64,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" /><!-- --></p>
+<p>Areas in blue indicate a higher predominance of younger lineages than
+expected, while in red indicates that older lineages are predominant.
+Areas colored in grey indicate that the observed species richness of
+younger and older species are close to the richness expected by our
+model.</p>
+<p>Using these residuals, we can possibly infer the processes leading to
+the differences between the species richness of older and younger
+lineages. Interestingly, these differences observed in the residuals are
+highly structured in space. There is a higher predominance of older
+lineages in deserts, which could be attributed to a processes of lower
+diversification rates within these locations over time. On the other
+hand, younger lineages predominate in humid areas and islands,
+indicating locations where diversification rates are higher and
+continually generate recent lineages. It is worth to mention that both
+mechanisms mentioned here are only hypotheses that deserves further
+empirical testing.</p>
+<p>That’s all folks!</p>
+</div>
+<div id="references-and-related-research" class="section level1">
+<h1>References and related research</h1>
+<p>Hawkins, B. A., Diniz‐Filho, J. A. F., Jaramillo, C. A, and Soeller,
+S. A. 2007. Climate, Niche Conservatism, and the Global Bird Diversity
+Gradient. - The American Naturalist 170(S2): S16–S27. <a href="https://doi.org/10.1086/519009" class="uri">https://doi.org/10.1086/519009</a></p>
+<p>Jetz, W., Thomas, G. H., Joy, J. B., Hartmann, K. and Mooers, A. O.
+2012. The global diversity of birds in space and time. - Nature
+491(7424): 444–448. <a href="https://doi.org/10.1038/nature11631" class="uri">https://doi.org/10.1038/nature11631</a></p>
+<p>Sonne, J., Dalsgaard, B., Borregaard, M. K., Kennedy, J., Fjeldså, J.
+and Rahbek, C. 2022. Biodiversity cradles and museums segregating within
+hotspots of endemism. - Proceedings of Royal Society: B. 289: 20221102.
+<a href="https://doi.org/10.1098/rspb.2022.1102" class="uri">https://doi.org/10.1098/rspb.2022.1102</a></p>
+</div>
+
+
+
+<!-- code folding -->
+
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
