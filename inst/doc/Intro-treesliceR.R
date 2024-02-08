@@ -56,7 +56,7 @@ plot(tree_squeeze50, main = "Squeezed at 50my", show.tip.label = F); axisPhylo()
 par(oldpar) # Returning to the original display
 
 ## ----echo=TRUE, eval=TRUE-----------------------------------------------------
-tree_squeeze30_drop <- squeeze_tips(tree = tree, time = 30, criteria = "my", dropNodes = TRUE)
+tree_squeeze30_drop <- squeeze_tips(tree = tree, time = 30, criterion = "my", dropNodes = TRUE)
 tree_squeeze30 # full binary tree
 tree_squeeze30_drop # tree with nodes dropped
 
@@ -64,8 +64,8 @@ tree_squeeze30_drop # tree with nodes dropped
 PD_total <- sum(tree$edge.length)
 
 ## ----echo=TRUE, eval=TRUE-----------------------------------------------------
-tree_squeeze10 <- squeeze_tips(tree = tree, time = PD_total/10, criteria = "pd")
-tree_squeeze50 <- squeeze_tips(tree = tree, time = PD_total/2, criteria = "pd")
+tree_squeeze10 <- squeeze_tips(tree = tree, time = PD_total/10, criterion = "pd")
+tree_squeeze50 <- squeeze_tips(tree = tree, time = PD_total/2, criterion = "pd")
 oldpar <- par(mfrow = c(1, 2)) # Setting an 1x2 graphical display
 plot(tree_squeeze10, main = "Tree squeezed at 10% PD", show.tip.label = F); axisPhylo()
 plot(tree_squeeze50, main = "Tree squeezed at 50% PD", show.tip.label = F); axisPhylo()

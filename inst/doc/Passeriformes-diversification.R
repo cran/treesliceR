@@ -70,16 +70,16 @@ knitr::include_graphics("Sliced_pas_tree.png")
 knitr::include_graphics("OneTree_DR.png")
 
 ## ----eval = TRUE--------------------------------------------------------------
-head(pass_asb[[1]][, 1:4])
+head(pass_mat[, 1:4])
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  vec <- c(250, 500, 750, 1000, 1250, 1500, 1750, 2000)
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  sens_turn <- CpR_sensitivity(tree = tree, vec = vec, samp = 100,
-#                               asb = pass_asb, rate = "CpB", comp = "turnover")
+#                               mat = pass_mat, adj = AU_adj, rate = "CpB", comp = "turnover")
 #  sens_nest <- CpR_sensitivity(tree = tree, vec = vec, samp = 100,
-#                               asb = pass_asb, rate = "CpB", comp = "nestedness")
+#                               mat = pass_mat, adj = AU_adj, rate = "CpB", comp = "nestedness")
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  # Store each graph within a respective object
@@ -97,9 +97,9 @@ knitr::include_graphics("OneTree_sensitivity.png")
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  # For turnover component
-#  turn <- CpB(tree = tree, n = 1000, asb = pass_asb, comp = "turnover")
+#  turn <- CpB(tree = tree, n = 1000, mat = pass_mat, adj = AU_adj, comp = "turnover")
 #  # For nestedness component
-#  nest <- CpB(tree = tree, n = 1000, asb = pass_asb, comp = "nestedness")
+#  nest <- CpB(tree = tree, n = 1000, mat = pass_mat, adj = AU_adj, comp = "nestedness")
 
 ## ----ggplot2, eval = FALSE----------------------------------------------------
 #  turn_1 <- CpR_graph(data = turn, rate = "CpB", qtl = TRUE)
@@ -193,7 +193,7 @@ knitr::include_graphics("AllTrees_DR.png")
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  CpB_turn <- lapply(pass_trees, function(x){
-#    return(CpB(tree = x, n = 1000, asb = pass_asb, comp = "turnover", ncor = 5))
+#    return(CpB(tree = x, n = 1000, mat = pass_mat, adj = AU_adj, comp = "turnover", ncor = 5))
 #  })
 
 ## ----eval = FALSE-------------------------------------------------------------
@@ -217,7 +217,7 @@ knitr::include_graphics("AllTrees_turn.png")
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  CpB_nest <- lapply(pass_trees, function(x){
-#    return(CpB(tree = x, n = 1000, asb = pass_asb, comp = "nestedness", ncor = 5))
+#    return(CpB(tree = x, n = 1000, mat = pass_mat, adj = AU_adj, comp = "nestedness", ncor = 5))
 #  })
 
 ## ----eval = FALSE-------------------------------------------------------------

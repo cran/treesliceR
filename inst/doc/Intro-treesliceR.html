@@ -477,7 +477,7 @@ to check out the differences:</p>
 TRUE (default is FALSE) alters the tree structure by removing nodes with
 no branch lengths from the original tree. We can check this out by
 typing:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tree_squeeze30_drop <span class="ot">&lt;-</span> <span class="fu">squeeze_tips</span>(<span class="at">tree =</span> tree, <span class="at">time =</span> <span class="dv">30</span>, <span class="at">criteria =</span> <span class="st">&quot;my&quot;</span>, <span class="at">dropNodes =</span> <span class="cn">TRUE</span>)</span>
+<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a>tree_squeeze30_drop <span class="ot">&lt;-</span> <span class="fu">squeeze_tips</span>(<span class="at">tree =</span> tree, <span class="at">time =</span> <span class="dv">30</span>, <span class="at">criterion =</span> <span class="st">&quot;my&quot;</span>, <span class="at">dropNodes =</span> <span class="cn">TRUE</span>)</span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a>tree_squeeze30 <span class="co"># full binary tree</span></span>
 <span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; </span></span>
 <span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="co">#&gt; Phylogenetic tree with 308 tips and 307 internal nodes.</span></span>
@@ -506,8 +506,8 @@ tree:</p>
 <div class="sourceCode" id="cb11"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a>PD_total <span class="ot">&lt;-</span> <span class="fu">sum</span>(tree<span class="sc">$</span>edge.length)</span></code></pre></div>
 <p>Then, lets squeeze our tips to the point where 10% and 50% of the
 total PD was accumulated in the phylogenetic tree:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tree_squeeze10 <span class="ot">&lt;-</span> <span class="fu">squeeze_tips</span>(<span class="at">tree =</span> tree, <span class="at">time =</span> PD_total<span class="sc">/</span><span class="dv">10</span>, <span class="at">criteria =</span> <span class="st">&quot;pd&quot;</span>)</span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tree_squeeze50 <span class="ot">&lt;-</span> <span class="fu">squeeze_tips</span>(<span class="at">tree =</span> tree, <span class="at">time =</span> PD_total<span class="sc">/</span><span class="dv">2</span>, <span class="at">criteria =</span> <span class="st">&quot;pd&quot;</span>)</span>
+<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a>tree_squeeze10 <span class="ot">&lt;-</span> <span class="fu">squeeze_tips</span>(<span class="at">tree =</span> tree, <span class="at">time =</span> PD_total<span class="sc">/</span><span class="dv">10</span>, <span class="at">criterion =</span> <span class="st">&quot;pd&quot;</span>)</span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a>tree_squeeze50 <span class="ot">&lt;-</span> <span class="fu">squeeze_tips</span>(<span class="at">tree =</span> tree, <span class="at">time =</span> PD_total<span class="sc">/</span><span class="dv">2</span>, <span class="at">criterion =</span> <span class="st">&quot;pd&quot;</span>)</span>
 <span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a>oldpar <span class="ot">&lt;-</span> <span class="fu">par</span>(<span class="at">mfrow =</span> <span class="fu">c</span>(<span class="dv">1</span>, <span class="dv">2</span>)) <span class="co"># Setting an 1x2 graphical display</span></span>
 <span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree_squeeze10, <span class="at">main =</span> <span class="st">&quot;Tree squeezed at 10% PD&quot;</span>, <span class="at">show.tip.label =</span> F); <span class="fu">axisPhylo</span>()</span>
 <span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(tree_squeeze50, <span class="at">main =</span> <span class="st">&quot;Tree squeezed at 50% PD&quot;</span>, <span class="at">show.tip.label =</span> F); <span class="fu">axisPhylo</span>()</span>
@@ -519,7 +519,7 @@ total PD was accumulated in the phylogenetic tree:</p>
 <p>Another option available in <code>treesliceR</code> is the
 <code>squeeze_root()</code> function, allowing users to squeeze the
 phylogenetic tree from the root to the tips using the same depth
-criteria and arguments as demonstrated in the previous section. For
+criterion and arguments as demonstrated in the previous section. For
 instance, let’s squeeze our passerine phylogeny root to 50 million
 years:</p>
 <div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a>tree_root50 <span class="ot">&lt;-</span> <span class="fu">squeeze_root</span>(<span class="at">tree =</span> tree, <span class="at">time =</span> <span class="dv">50</span>)</span>

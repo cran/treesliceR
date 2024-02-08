@@ -1,7 +1,7 @@
 Package: treesliceR
 Title: To Slice Phylogenetic Trees and Infer Evolutionary Patterns Over
         Time
-Version: 1.0.0
+Version: 1.0.1
 Authors@R: 
     c(person("Matheus Lima", "Araujo", , "matheusaraujolima@live.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-9111-725X")),
@@ -30,7 +30,7 @@ Suggests: devtools, ggpubr (>= 0.6.0), knitr, rmarkdown, testthat (>=
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2023-12-18 11:28:02 UTC; Mathe
+Packaged: 2024-02-08 13:21:25 UTC; Mathe
 Author: Matheus Lima Araujo [aut, cre, cph]
     (<https://orcid.org/0000-0002-9111-725X>),
   Luiz Gabriel Souza e Souza Ferreira [aut]
@@ -41,4 +41,4 @@ Author: Matheus Lima Araujo [aut, cre, cph]
   Thiago Fernando Rangel [aut] (<https://orcid.org/0000-0002-2001-7382>)
 Maintainer: Matheus Lima Araujo <matheusaraujolima@live.com>
 Repository: CRAN
-Date/Publication: 2023-12-18 18:20:03 UTC
+Date/Publication: 2024-02-08 13:40:04 UTC
