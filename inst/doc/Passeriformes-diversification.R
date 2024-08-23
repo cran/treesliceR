@@ -10,64 +10,114 @@ knitr::opts_chunk$set(
 library(ape)
 library(ggplot2)
 library(ggpubr)
+library(sf)
 
 ## ----message = FALSE, warning = FALSE-----------------------------------------
 # Loading it
 library(treesliceR)
 
-## ----eval = FALSE-------------------------------------------------------------
-#  tree <- pass_trees[[1]]
+## ----eval = TRUE--------------------------------------------------------------
+tree <- pass_trees[[1]]
 
-## ----eval = FALSE-------------------------------------------------------------
-#  recent <- squeeze_root(tree = tree, time = 33, dropNodes = T)
-#  old <- squeeze_tips(tree = tree, time = 33, dropNodes = T)
+## ----eval = TRUE--------------------------------------------------------------
+ancient <- prune_tips(tree, 0.75, qtl = TRUE)
+recent <- prune_tips(tree, 0.25, qtl = TRUE, method = 2)
 
-## ----eval = FALSE-------------------------------------------------------------
-#  oldpar <- par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
-#  plot(tree, main = "Complete tree", show.tip.label = F); axisPhylo()
-#  plot(old, main = "Old tree", show.tip.label = F); axisPhylo()
-#  plot(recent, main = "Recent tree", show.tip.label = F); axisPhylo()
-#  par(oldpar) # Returning to the original display
+## ----eval = TRUE--------------------------------------------------------------
+oldpar <- par(mfrow = c(1, 3)) # Setting an 1x3 graphical display
+plot(tree, main = "Complete tree", show.tip.label = F); axisPhylo()
+plot(ancient, main = "Ancient tree", show.tip.label = F); axisPhylo()
+plot(recent, main = "Recent tree", show.tip.label = F); axisPhylo()
+par(oldpar) # Returning to the original display
 
-## ----echo = FALSE, fig.align = 'center'---------------------------------------
-knitr::include_graphics("Sliced_pas_tree.png")
+## ----eval = TRUE--------------------------------------------------------------
+anc_mat <- pass_mat[, which(colnames(pass_mat) %in% ancient$tip.label)]
 
-## ----eval = FALSE-------------------------------------------------------------
-#  DR_diff <- DR(tree = recent)[,2] - DR(tree = old)[,2]
+## ----eval = TRUE--------------------------------------------------------------
+anc_end_mat <- anc_mat[which(colSums(anc_mat) <= quantile(colSums(anc_mat), 0.30))]
 
-## ----eval = FALSE-------------------------------------------------------------
-#  tree$Species_info$DR_diff <- DR_diff
+## ----eval = TRUE--------------------------------------------------------------
+# All recent
+rec_mat <- pass_mat[, which(colnames(pass_mat) %in% recent$tip.label)]
+# Endemics
+rec_end_mat <- rec_mat[which(colSums(rec_mat) <= quantile(colSums(rec_mat), 0.30))]
 
-## ----eval = FALSE-------------------------------------------------------------
-#  # tapply() for means
-#  fam_DR <- tapply(tree$Species_info$DR_diff, tree$Species_info$Family, mean)
-#  # tapply() for standard deviations
-#  fam_DR_sd <- tapply(tree$Species_info$DR_diff, tree$Species_info$Family, sd)
+## ----eval = TRUE--------------------------------------------------------------
+AU_grid <- cbind(AU_grid, 
+                 SR_anc = rowSums(anc_mat), SR_end_anc = rowSums(anc_end_mat), # Ancient
+                 SR_rec = rowSums(rec_mat), SR_end_rec = rowSums(rec_end_mat)) # Recent
 
-## ----eval = FALSE-------------------------------------------------------------
-#  # Creating the families DR data frame
-#  fam_df <- data.frame(Family = names(fam_DR), DR_diff = fam_DR, DR_sd = fam_DR_sd)
-#  # Sorting them based on DR's value
-#  fam_df <- fam_df[order(fam_df$DR_diff),]
-#  # Turning this order into a factor to plot it
-#  fam_df$Family <- factor(fam_df$Family, levels = fam_df$Family)
 
-## ----eval = FALSE-------------------------------------------------------------
-#  ggplot(fam_df, aes(x = Family, y = DR_diff,
-#                      ymin = DR_diff - DR_sd,
-#                      ymax = DR_diff + DR_sd)) +
-#    geom_pointrange(color = "#d90429") +
-#    geom_hline(yintercept = 0, linetype="dashed", color = "black") +
-#    coord_flip() + theme_minimal() +
-#    theme(axis.title = element_text(size = 13),
-#          axis.text = element_text(size = 10),
-#          axis.line = element_line(colour = "black"),
-#          panel.grid.major.x = element_blank(),
-#          panel.grid.minor.x = element_blank()) +
-#    ylab(expression(paste(DR["recent"]-DR["past"]))) + xlab(NULL)
+## ----eval = TRUE, warning = FALSE, fig.align='center', out.width="80%"--------
+# Before plotting, let's set a cool palette:
+pal <- colorRampPalette(c("#30009B", "#000083", "#009BFE", "#00BC00", "#FEF600", "#FE6230", "#DD0000" ))
 
-## ----echo = FALSE, fig.align='center', out.width="60%"------------------------
-knitr::include_graphics("OneTree_DR.png")
+# All species
+fig_a <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_anc)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(0.5, max(AU_grid$SR_anc)),
+                       na.value="white") +
+  labs(fill = expression(SR["ancient"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# Only endemics
+fig_b <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_end_anc)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(0.5, max(AU_grid$SR_end_anc)),
+                       na.value="white") +
+  labs(fill = expression(SR["ancient"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# To plot them together
+ggarrange(fig_a, fig_b,
+          labels = c("a)", "b)"), ncol = 2, nrow = 1)
+
+
+## ----eval = TRUE, warning = FALSE, fig.align='center', out.width="80%"--------
+# All species
+fig_c <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(1, max(AU_grid$SR_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["recent"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# Only endemics
+fig_d <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_end_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(1, max(AU_grid$SR_end_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["recent"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# To plot them together
+ggarrange(fig_c, fig_d,
+          labels = c("c)", "d)"), ncol = 2, nrow = 1)
+
 
 ## ----eval = TRUE--------------------------------------------------------------
 head(pass_mat[, 1:4])
@@ -121,75 +171,110 @@ knitr::include_graphics("OneTree_turn.png")
 ## ----echo = FALSE, fig.align='center'-----------------------------------------
 knitr::include_graphics("OneTree_nest.png")
 
-## ----eval = FALSE-------------------------------------------------------------
-#  recent <- lapply(tree, function(x){return(squeeze_root(x, 33, dropNodes = T))})
-#  old <- lapply(tree, function(x){return(squeeze_tips(x, 33, dropNodes = T))})
+## ----echo=TRUE----------------------------------------------------------------
+# Data frames for ancient lineages:
+mat_anc_rich <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
+mat_anc_endemics <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
 
-## ----eval = FALSE-------------------------------------------------------------
-#  DR_rec <- lapply(recent, function(x){DR(x)})
-#  DR_old <- lapply(old, function(x){DR(x)})
+# Data frames for recent ones:
+mat_rec_rich <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
+mat_rec_endemics <- as.data.frame(matrix(nrow = nrow(AU_grid), ncol = 100))
 
-## ----eval = FALSE-------------------------------------------------------------
-#  # Recent
-#  f_DRrec <- DR_rec[[1]]
-#  colnames(f_DRrec)[2] <- 1
-#  # Old
-#  f_DRold <- DR_old[[1]]
-#  colnames(f_DRold)[2] <- 1
-#  
-#  # Looping
-#  for (i in 2:length(DR_rec)) {
-#    # Recent
-#    f_DRrec <- merge(f_DRrec, DR_rec[[i]], by = "Species", sort = FALSE)
-#    colnames(f_DRrec)[i + 1] <- i
-#    # Old
-#    f_DRold <- merge(f_DRold, DR_old[[i]], by = "Species", sort = FALSE)
-#    colnames(f_DRold)[i + 1] <- i
-#  }
+## ----echo=TRUE----------------------------------------------------------------
+# Create a for loop that iterate along all trees
+for (i in 1:100) {
+  # Select phylogeny "i" available within the package:
+  tree <- pass_trees[[i]]
+  # Prune the "i" phylogeny based on quantiles:
+  ancient <- prune_tips(tree, 0.75, qtl = T)
+  recent <- prune_tips(tree, 0.25, qtl = T, method = 2)
+  
+  # Capture the presence-absence matrix for ancient species:
+  anc_mat <- pass_mat[, which(colnames(pass_mat) %in% ancient$tip.label)]
+  mat_anc_rich[, i] <- rowSums(anc_mat) # Save their species richness
+  # Capture ancient endemic richness in Australia:
+  anc_mat <- anc_mat[which(colSums(anc_mat) <= quantile(colSums(anc_mat), 0.30))]
+  mat_anc_endemics[, i] <- rowSums(anc_mat) # Save their species richness
+  
+  # Capturing the presence-absence matrix for recent species:
+  rec_mat <- pass_mat[, which(colnames(pass_mat) %in% recent$tip.label)]
+  mat_rec_rich[, i] <- rowSums(rec_mat) # Save their species richness
+  # Capturing recent endemic richness in Australia:
+  rec_mat <- rec_mat[which(colSums(rec_mat) <= quantile(colSums(rec_mat), 0.30))]
+  mat_rec_endemics[, i] <- rowSums(rec_mat) # Save their species richness
+}
 
-## ----eval = FALSE-------------------------------------------------------------
-#  # Recent
-#  DR_rec_mean <- apply(f_DRrec[, -1], 1, mean)
-#  DR_rec_sd <- apply(f_DRrec[, -1], 1, sd)
-#  
-#  # Old
-#  DR_old_mean <- apply(f_DRold[, -1], 1, mean)
-#  DR_old_sd <- apply(f_DRold[, -1], 1, sd)
-#  
-#  # Capturing their mean difference
-#  DR_diff <- DR_rec_mean - DR_old_mean
+## ----echo = TRUE--------------------------------------------------------------
+# Assigning ancient species richness
+AU_grid$SR_anc <- rowMeans(mat_anc_rich)
+AU_grid$SR_end_anc <- rowMeans(mat_anc_endemics)
+# Assigning recent species richness
+AU_grid$SR_rec <- rowMeans(mat_rec_rich)
+AU_grid$SR_end_rec <- rowMeans(mat_rec_endemics)
 
-## ----eval = FALSE-------------------------------------------------------------
-#  df <- data.frame(Specie = f_DRrec[, 1], DR_diff = DR_diff)
-#  # Capturing families information
-#  df <- merge(df, tree[[1]]$Species_info, by = "Specie", sort = FALSE)
-#  
-#  ## Displaying it graphically for families
-#  fam_DR <- tapply(df$DR_diff, df$Family, mean)
-#  fam_DR_sd <- tapply(df$DR_diff, df$Family, sd)
 
-## ----eval = FALSE-------------------------------------------------------------
-#  fam_df <- data.frame(Family = names(fam_DR), DR_diff = fam_DR, DR_sd = fam_DR_sd)
-#  # Ordering to plot
-#  fam_df <- fam_df[order(fam_df$DR_diff),]
-#  fam_df$Family <- factor(fam_df$Family, levels = fam_df$Family)
+## ----eval = TRUE, warning = FALSE, fig.align='center', out.width="80%"--------
+# All ancient species
+fig_a <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_anc)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(0.5, max(AU_grid$SR_anc)),
+                       na.value="white") +
+  labs(fill = expression(SR["ancient"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
 
-## ----eval = FALSE-------------------------------------------------------------
-#  ggplot(fam_df, aes(x = Family, y = DR_diff,
-#                      ymin = DR_diff - DR_sd,
-#                      ymax = DR_diff + DR_sd)) +
-#    geom_pointrange(color = "#d90429") +
-#    geom_hline(yintercept = 0, linetype="dashed", color = "black") +
-#    coord_flip() + theme_minimal() +
-#    theme(axis.title = element_text(size = 13),
-#          axis.text = element_text(size = 10),
-#          axis.line = element_line(colour = "black"),
-#          panel.grid.major.x = element_blank(),
-#          panel.grid.minor.x = element_blank()) +
-#    ylab(expression(paste(DR["recent"]-DR["past"]))) + xlab(NULL)
+# Only ancient endemics
+fig_b <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_end_anc)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(0.5, max(AU_grid$SR_end_anc)),
+                       na.value="white") +
+  labs(fill = expression(SR["ancient"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
 
-## ----echo = FALSE, fig.align='center', out.width="60%"------------------------
-knitr::include_graphics("AllTrees_DR.png")
+# All recent species
+fig_c <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(0.5, max(AU_grid$SR_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["recent"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# Only recent endemics
+fig_d <- ggplot() +
+  geom_sf(data = AU_grid, aes(fill = SR_end_rec)) +
+  scale_fill_gradientn(colours = pal(100),
+                       limits = c(0.5, max(AU_grid$SR_end_rec)),
+                       na.value="white") +
+  labs(fill = expression(SR["recent"])) +
+  theme_void() +
+  labs(x = NULL, y = NULL) +
+  theme(legend.position = c(.15, .14),
+        legend.title = element_text(size = 13),
+        legend.key.size = unit(0.75, "cm"),
+        legend.direction = "horizontal")
+
+# To plot them together
+ggarrange(fig_a, fig_b, fig_c, fig_d,
+          labels = c("a)", "b)", "c)", "d)"), 
+          ncol = 2, nrow = 2)
+
 
 ## ----eval = FALSE-------------------------------------------------------------
 #  CpB_turn <- lapply(pass_trees, function(x){

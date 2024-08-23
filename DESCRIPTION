@@ -1,7 +1,7 @@
 Package: treesliceR
 Title: To Slice Phylogenetic Trees and Infer Evolutionary Patterns Over
         Time
-Version: 1.0.1
+Version: 1.0.2
 Authors@R: 
     c(person("Matheus Lima", "Araujo", , "matheusaraujolima@live.com", role = c("aut", "cre", "cph"),
            comment = c(ORCID = "0000-0002-9111-725X")),
@@ -16,7 +16,7 @@ Authors@R:
 Description: Provide a range of functions with multiple criteria for cutting phylogenetic trees at any evolutionary depth. It enables users to cut trees in any orientation, such as rootwardly (from root to tips) and tipwardly (from tips to its root), or allows users to define a specific time interval of interest. It can also be used to create multiple tree pieces of equal temporal width. Moreover, it allows the assessment of novel temporal rates for various phylogenetic indexes, which can be quickly displayed graphically.
 License: MIT + file LICENSE
 Encoding: UTF-8
-RoxygenNote: 7.2.3
+RoxygenNote: 7.3.1
 URL: https://github.com/AraujoMat/treesliceR,
         https://araujomat.github.io/treesliceR/
 Depends: R (>= 2.10)
@@ -30,7 +30,7 @@ Suggests: devtools, ggpubr (>= 0.6.0), knitr, rmarkdown, testthat (>=
 VignetteBuilder: knitr
 Config/testthat/edition: 3
 NeedsCompilation: no
-Packaged: 2024-02-08 13:21:25 UTC; Mathe
+Packaged: 2024-08-23 18:10:52 UTC; Mathe
 Author: Matheus Lima Araujo [aut, cre, cph]
     (<https://orcid.org/0000-0002-9111-725X>),
   Luiz Gabriel Souza e Souza Ferreira [aut]
@@ -41,4 +41,4 @@ Author: Matheus Lima Araujo [aut, cre, cph]
   Thiago Fernando Rangel [aut] (<https://orcid.org/0000-0002-2001-7382>)
 Maintainer: Matheus Lima Araujo <matheusaraujolima@live.com>
 Repository: CRAN
-Date/Publication: 2024-02-08 13:40:04 UTC
+Date/Publication: 2024-08-23 18:30:02 UTC
